@@ -7,16 +7,16 @@ interface DatabaseConfig {
 }
 
 const databaseConfig: DatabaseConfig = {
-  connection: 'mysql' as 'mysql' | 'sqlite',
+  connection: process.env.DB_CONNECTION as 'mysql' | 'sqlite',
 
   connections: {
     mysql: {
       dialect: 'mysql',
-      host: 'localhost' as string,
-      port: Number(3306),
-      username: 'root' as string,
-      password: 'qwerty99' as string,
-      database: 'vdm' as string,
+      host: process.env.DB_HOST as string,
+      port: Number(process.env.DB_PORT as string),
+      username: process.env.DB_USER as string,
+      password: process.env.DB_PASSWORD as string,
+      database: process.env.DB_NAME as string,
     },
 
     sqlite: {

@@ -12,7 +12,6 @@ class DbConnection {
   private connect() {
     if (!this.sequelize) {
       const connectionOptions = DatabaseConfig.connections[DatabaseConfig.connection]
-      console.log(DatabaseConfig)
       this.sequelize = new Sequelize({
         ...connectionOptions,
         models: [Task, Employee, Role],

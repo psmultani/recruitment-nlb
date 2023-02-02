@@ -33,16 +33,16 @@ class EmployeeController {
     const employee = await EmployeeService.store(payload)
     response.json({ data: employee })
   }
-/**
- * 
- * @param request : Object
- * @param response : Object
- * 
- * it takes the employee data and the new associated task to save
- * them in their respective tables with the necessary associations
- * and returns to the client as response a copy of the task and its 
- * owner
- */
+  /**
+   * 
+   * @param request : Object
+   * @param response : Object
+   * 
+   * it takes the employee data and the new associated task to save
+   * them in their respective tables with the necessary associations
+   * and returns to the client as response a copy of the task and its 
+   * owner
+   */
   public async storeWithTask(request: Request, response: Response) {
     const { employee: employeeData, task: taskData } = request.body
 
@@ -85,11 +85,24 @@ class EmployeeController {
     response.json({ data: tasks })
   }
 
+  /**
+   * 
+   * @param request : Object
+   * @param response : Object
+   * 
+   * it returns the employee data and its associated tasks according to the query
+   * parameters passed to the server by the client, if no
+   * parameter is passed it sends all the data
+   */
   public async employeesWithtasks(request: Request, response: Response) {
+    const { page, size } = request.query
+    const { employee: employeeData, task: taskData } = request.body
     const employees = await EmployeeService.allWithConditions({
       include: [{
         model: Task,
       }],
+      offset: page ? Number(page) : 0,
+      limit: page ? Number(size) : null
     })
     response.json({ data: employees })
   }

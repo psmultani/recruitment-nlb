@@ -7,8 +7,24 @@ import Task from '@app/Models/Task'
 
 @ControllerDecorator
 class EmployeeController {
+
+  /**
+   * 
+   * @param request : Object
+   * @param response : Object
+   * 
+   * it returns the employees list according to the query
+   * parameters passed to the server by the client, if no
+   * parameter is passed it sends all the employees data
+   */
   public async index(request: Request, response: Response) {
-    const employees = await EmployeeService.all()
+    const { page, size } = request.query
+    const employees = await EmployeeService.allWithConditions(
+      {
+        offset: page ? Number(page) : 0,
+        limit: page ? Number(size) : null
+      }
+    )
     response.json({ data: employees })
   }
 

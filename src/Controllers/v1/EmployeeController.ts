@@ -78,10 +78,29 @@ class EmployeeController {
     response.json({ success: true })
   }
 
+  /**
+   * 
+   * @param request : Object
+   * @param response : Object
+   * 
+   * it returns the employee's associated tasks according to the query
+   * parameters passed to the server by the client, if no
+   * parameter is passed it sends all the tasks
+   */
   public async tasks(request: Request, response: Response) {
     const { id } = request.params
+    const { page, size } = request.query
     const employee = await EmployeeService.findOrFail(id)
-    const tasks = await employee.$get('tasks')
+    const tasks = await TaskService.allWithConditions(
+      {
+        where: {
+          employee_id: employee.employee_id_number
+        },
+        offset: page ? Number(page) : 0,
+        limit: page ? Number(size) : null
+      }
+    )
+
     response.json({ data: tasks })
   }
 
@@ -96,7 +115,6 @@ class EmployeeController {
    */
   public async employeesWithtasks(request: Request, response: Response) {
     const { page, size } = request.query
-    const { employee: employeeData, task: taskData } = request.body
     const employees = await EmployeeService.allWithConditions({
       include: [{
         model: Task,

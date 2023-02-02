@@ -5,8 +5,24 @@ import TaskService from '@app/Services/TaskService'
 
 @ControllerDecorator
 class TaskController {
+
+  /**
+   * 
+   * @param request : Object
+   * @param response : Object
+   * 
+   * it returns the tasks list according to the query
+   * parameters passed to the server by the client, if no
+   * parameter is passed it sends all the tasks data
+   */
   public async index(request: Request, response: Response) {
-    const tasks = await TaskService.all()
+    const { page, size } = request.query
+    const tasks = await TaskService.allWithConditions(
+      {
+        offset: page ? Number(page) : 0,
+        limit: page ? Number(size) : null
+      }
+    )
     response.json(tasks)
   }
 

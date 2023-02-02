@@ -9,7 +9,8 @@
     "lint": "eslint src --ext=.ts",
     "run": "node build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "swagger-autogen": "node swagger.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "compression": "^1.7.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-openapi": "^12.1.0",
     "helmet": "^6.0.0",
     "mysql2": "^2.3.3",
     "pino": "^8.7.0",
@@ -47,6 +49,9 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.25.6",
     "sequelize-cli": "^6.5.2",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "^2.1.5",
+    "swagger-autogen": "^2.23.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
   }
 }

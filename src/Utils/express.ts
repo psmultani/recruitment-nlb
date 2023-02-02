@@ -2,7 +2,8 @@ import * as bodyParser from 'body-parser'
 import compression from 'compression'
 import { Express } from 'express'
 import helmet from 'helmet'
-
+import * as swaggerFile from '../../swagger_output.json'
+import swaggerUi from 'swagger-ui-express'
 import ExceptionHandler from '@app/Exceptions/Handler'
 import NotFound from '@app/Exceptions/NotFound'
 import routes from '@app/Routes'
@@ -16,6 +17,8 @@ const initialize = (app: Express) => {
   app.get('/healthcheck', (req, res) => {
     res.status(200).json({ healthy: true })
   })
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
   app.use('/', routes())
 

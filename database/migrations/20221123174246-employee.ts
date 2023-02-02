@@ -9,8 +9,12 @@ const migration: Migration = {
         primaryKey: true,
         autoIncrement: true,
       },
+      /* Changed from type String to Number as it was incorrect
+       * and the association with task.employee_id couldn't function
+       * properly
+       */
       employee_id_number: {
-        type: sequelize.DataTypes.STRING,
+        type: sequelize.DataTypes.NUMBER,
         allowNull: false,
       },
       name: {

@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import ControllerDecorator from '@app/Decorators/ControllerDecorator'
 import EmployeeService from '@app/Services/EmployeeService'
+import Task from '@app/Models/Task'
 
 @ControllerDecorator
 class EmployeeController {
@@ -40,6 +41,15 @@ class EmployeeController {
     const employee = await EmployeeService.findOrFail(id)
     const tasks = await employee.$get('tasks')
     response.json({ data: tasks })
+  }
+
+  public async employeesWithtasks(request: Request, response: Response) {
+    const employees = await EmployeeService.allWithConditions({
+      include: [{
+        model: Task,
+      }],
+    })
+    response.json({ data: employees })
   }
 }
 

@@ -7,6 +7,7 @@ export default () => {
 
   employees.get('/', EmployeeController.index)
   employees.post('/', EmployeeController.store)
+  employees.get('/tasks', EmployeeController.employeesWithtasks)
   employees.get('/:id', EmployeeController.show)
   employees.put('/:id', EmployeeController.update)
   employees.patch('/:id', EmployeeController.update)

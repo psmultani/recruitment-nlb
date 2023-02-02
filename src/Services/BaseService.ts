@@ -1,4 +1,4 @@
-import { CreationAttributes, InferAttributes, WhereOptions } from 'sequelize/types/model'
+import { CreationAttributes, FindOptions, InferAttributes, WhereOptions } from 'sequelize/types/model'
 import { Model, ModelCtor } from 'sequelize-typescript'
 
 import NotFound from '@app/Exceptions/NotFound'
@@ -8,6 +8,10 @@ abstract class BaseService<T extends Model> {
 
   public async all(): Promise<Array<T>> {
     return this.model.findAll()
+  }
+
+  public async allWithConditions(condition: FindOptions<T>): Promise<Array<T>> {
+    return this.model.findAll(condition)
   }
 
   public async find(id: T['id']): Promise<T | null> {

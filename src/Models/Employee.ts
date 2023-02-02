@@ -42,7 +42,7 @@ export default class Employee extends Model {
   @BelongsTo(() => Role)
   public role: Role
 
-  @HasMany(() => Task)
+  @HasMany(() => Task, { foreignKey: 'employee_id' })
   public tasks: Array<Task>
 
   @CreatedAt
